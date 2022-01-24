@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: ping all ips
+  - action: ping
+  tasks:
+  - name: Print Debug Message
+    debug:
+     msg: Hello, World Yay!

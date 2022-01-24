@@ -1,0 +1,65 @@
+---
+- hosts: docker
+  become: true
+  gather_facts: no
+  tasks:
+    - name: create build directory
+      file:
+        path: /home/ubuntu/demo-dockerfile
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: copy Dockerfile
+      copy:
+        src: ./Dockerfile
+        dest: /home/ubuntu/demo-dockerfile/Dockerfile
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: run command to change directory
+      ansible.builtin.shell: cd /home/ubuntu/demo-dockerfile/
+      args:
+       executable: /bin/bash
+
+    - name: make txt
+      ansible.builtin.shell: sudo touch /home/ubuntu/demo-dockerfile/newbirds.txt
+      args:
+       executable: /bin/bash
+    - name: Clone github repository
+      git:
+       repo: https://github.com/radleap/DevOpsSimple
+       dest: /home/ubuntu/repo/
+       clone: yes
+       update: yes
+    - name: Sending custom index.html
+      ansible.builtin.shell: sudo touch /home/ubuntu/demo-dockerfile/index.html
+      args:
+       executable: /bin/bash
+
+    - name: Editing index.html
+      ansible.builtin.shell: sudo echo "I am a webpage" > /home/ubuntu/demo-dockerfile/index.html
+      args:
+       executable: /bin/bash
+
+    - name: Build Docker Container
+      ansible.builtin.shell: sudo docker build -f /home/ubuntu/demo-dockerfile/Dockerfile -t my_img /home/ubuntu/demo-dockerfile/
+      args:
+       executable: /bin/bash
+
+    - name: Stop existing container
+      ansible.builtin.shell: sudo docker stop $(sudo docker ps -a -q)
+      args:
+       executable: /bin/bash
+
+    - name: delete existing container 
+      ansible.builtin.shell: sudo docker rm  $(sudo docker ps -a -q)
+      args:
+       executable: /bin/bash
+
+    - name: Run Container
+      ansible.builtin.shell: sudo docker run -d -p 80:80 my_img
+      args:
+       executable: /bin/bash

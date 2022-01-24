@@ -1,0 +1,7 @@
+[docker]
+54.91.122.154
+[docker:vars]
+ansible_user=ubuntu
+
+[testnodes]
+54.91.122.154 ansible_user=ubuntu

@@ -1,0 +1,39 @@
+---
+- hosts: docker
+  become: true
+  gather_facts: no
+  tasks:
+    - name: create build directory
+      file:
+        path: /home/ubuntu/repo
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Clone github repository
+      git:
+       repo: https://github.com/radleap/DevOpsProject1Dockerfile
+       dest: /home/ubuntu/repo/
+       clone: yes
+       update: yes
+
+    - name: Build Docker Container
+      ansible.builtin.shell: sudo docker build -f /home/ubuntu/repo/Dockerfile -t my_img /home/ubuntu/repo/
+      args:
+       executable: /bin/bash
+
+    - name: Stop existing containers
+      ansible.builtin.shell: sudo docker stop $(sudo docker ps -a -q)
+      args:
+       executable: /bin/bash
+
+    - name: Delete existing containers 
+      ansible.builtin.shell: sudo docker rm  $(sudo docker ps -a -q)
+      args:
+       executable: /bin/bash
+
+    - name: Run Container Exposed on Port 80
+      ansible.builtin.shell: sudo docker run -d -p 80:80 my_img
+      args:
+       executable: /bin/bash

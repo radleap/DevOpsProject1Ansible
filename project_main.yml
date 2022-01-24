@@ -37,6 +37,6 @@
       ignore_errors: yes
 
     - name: Run Container Exposed on Port 80
-      ansible.builtin.shell: sudo docker run -d -p 80:80 my_img
+      ansible.builtin.shell: sudo docker run -i -d -p 80:80 my_img
       args:
        executable: /bin/bash

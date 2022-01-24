@@ -3,7 +3,7 @@ pipeline{
     stages{
      stage('SCM Checkout') {
       steps{
-        git branch: 'main', url: 'https://github.com/radleap/DevOpsAnsible'
+        git branch: 'main', url: 'https://github.com/radleap/DevOpsProject1Ansible'
             }
         }
      stage('Execute Ansible') {

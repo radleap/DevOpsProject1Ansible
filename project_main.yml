@@ -24,15 +24,17 @@
       args:
        executable: /bin/bash
 
-    - name: Stop existing containers
-      ansible.builtin.shell: sudo docker stop $(sudo docker ps -a -q)
-      args:
-       executable: /bin/bash
+    - block
+      - name: Stop existing containers
+        ansible.builtin.shell: sudo docker stop $(sudo docker ps -a -q)
+        args:
+         executable: /bin/bash
 
-    - name: Delete existing containers 
-      ansible.builtin.shell: sudo docker rm  $(sudo docker ps -a -q)
-      args:
-       executable: /bin/bash
+      - name: Delete existing containers 
+        ansible.builtin.shell: sudo docker rm  $(sudo docker ps -a -q)
+        args:
+         executable: /bin/bash
+      ignore_errors: yes
 
     - name: Run Container Exposed on Port 80
       ansible.builtin.shell: sudo docker run -d -p 80:80 my_img

@@ -24,7 +24,7 @@
       args:
        executable: /bin/bash
 
-    - block
+    - block:
       - name: Stop existing containers
         ansible.builtin.shell: sudo docker stop $(sudo docker ps -a -q)
         args:

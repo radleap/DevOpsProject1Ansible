@@ -14,7 +14,8 @@
     - name: Clone github repository
       git:
        repo: https://github.com/radleap/DevOpsProject1Dockerfile
-       dest: /home/ubuntu/repo/
+       dest: /home/ubuntu/repo
+       version: main
        clone: yes
        update: yes
 

@@ -6,23 +6,35 @@ pipeline{
         git branch: 'main', url: 'https://github.com/radleap/DevOpsProject1Ansible'
             }
         }
-     stage('Execute Ansible Install Docker on Ubuntu 1804') {
+
+     stage('Testing: Ansible Install Docker on EC2 Ubuntu 1804') {
       steps{
-        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts_testing', playbook: 'docker-install-ubuntu.yml'
+        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts_testing', playbook: 'playnook-docker-install-ubuntu.yml'
             }
         }
 
-
-     stage('Execute Ansible Simple') {
+     stage('Testing: Ansible Build Container and Website') {
       steps{
-        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts_testing', playbook: 'testplaybook.yml'
+        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts_testing', playbook: 'playbook-deploy.yml'
+            }
+      post success {}
+           failure {error "Failed to create testing website."}
+           aborted {}
+           unstable {error "Unstable, failed to create testing website."}
+
+        }
+
+     stage('Production: Ansible Install Docker on EC2 Ubuntu 1804') {
+      steps{
+        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts_prod', playbook: 'playbook-docker-install-ubuntu.yml'
             }
         }
 
-     stage('Execute Ansible Project Main Directive') {
+     stage('Production: Ansible Build Container and Website') {
       steps{
-        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts_testing', playbook: 'project_main.yml'
+        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts_prod', playbook: 'playbook-deploy.yml'
             }
         }
+
  }
 }

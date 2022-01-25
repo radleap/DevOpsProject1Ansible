@@ -10,7 +10,7 @@
 	- Grafana (Continuous Monitoring tbd)
 	- Terraform (Infrustructure as Code) 
 - Continous testing was limited to success of the testing docker container build and website exposure.
-- Continuous monitoring are considered next steps. 
+- Continuous monitoring is considered next steps. 
 
 
 ## Repositories
@@ -26,7 +26,6 @@ The project makes use of the following three repositories:
 	- Code requires an AWS account
 	- Terraform code requires AWS access key, secret and region passed
 	- Procures two EC2 instances (test and prod)
-- Jenkinsfile -> executes Ansible commands..
 
 ## General Notes:
 - An ubuntu 18.04 VM was used as a master node.
@@ -41,7 +40,7 @@ The project makes use of the following three repositories:
 	- AWS credentials: in order to ssh into the EC2 instances, the rsa key was set in credentials (this is called in the ansible playbook as 'private-key')
 	- Git repository is public otherwise credential set here
 	- Dockerhub credentials were set (for projects in which dockerhub image workflow was used)
-- Global Tool configuration:
+- Global Tool Configuration:
 	- Ansible: providing the ansible name and location /usr/bin/
 	- Git 
 
@@ -54,3 +53,5 @@ The project makes use of the following three repositories:
 - Jenkins uses the EC2 test instance, installs docker, builds image, and deploys on the test server EC2 instance.
 - If not a failure (basically our test here), Jenkins kicks of the same on the production EC2 instance. 
 - Ultimate output is the website, if passes tests, is successfully deployed to internet. 
+
+![Jenkins Pipeline](https://github.com/radleap/DevOpsProject1Ansible/images/img_jenkins_pipeline_view.JPG?raw=true)

@@ -9,7 +9,7 @@ pipeline{
 
      stage('Testing: Ansible Install Docker on EC2 Ubuntu 1804') {
       steps{
-        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts_testing', playbook: 'playnook-docker-install-ubuntu.yml'
+        ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts_testing', playbook: 'playbook-docker-install-ubuntu.yml'
             }
         }
 

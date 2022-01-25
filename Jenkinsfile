@@ -17,9 +17,7 @@ pipeline{
       steps{
         ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts_testing', playbook: 'playbook-deploy.yml'
             }
-      post{ success {}
-            failure {error "Failed to create testing website."}
-            aborted {}
+      post{ failure {error "Failed to create testing website."}
             unstable {error "Unstable, failed to create testing website."}
            }
         }

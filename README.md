@@ -54,4 +54,7 @@ The project makes use of the following three repositories:
 - If not a failure (basically our test here), Jenkins kicks of the same on the production EC2 instance. 
 - Ultimate output is the website, if passes tests, is successfully deployed to internet. 
 
+## InfoSec Notes:
+- All EC2s, IP addresses, keys/secrets, etc... have been rotated/destroyed.
+
 ![Jenkins Pipeline](https://github.com/radleap/DevOpsProject1Ansible/blob/main/images/img_jenkins_pipeline_view.JPG)

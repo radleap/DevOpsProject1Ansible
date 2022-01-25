@@ -1,5 +1,5 @@
 ---
-- hosts: docker
+- hosts: all
   become: true
   vars:
     create_containers: 1 
@@ -31,6 +31,3 @@
     - name: Install Docker Module for Python
       pip:
         name: docker
-
-    # Pull image specified by variable default_image from the Docker Hub
-    # TODO

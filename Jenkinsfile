@@ -17,11 +17,11 @@ pipeline{
       steps{
         ansiblePlaybook credentialsId: 'private-key', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts_testing', playbook: 'playbook-deploy.yml'
             }
-      post success {}
-           failure {error "Failed to create testing website."}
-           aborted {}
-           unstable {error "Unstable, failed to create testing website."}
-
+      post{ success {}
+            failure {error "Failed to create testing website."}
+            aborted {}
+            unstable {error "Unstable, failed to create testing website."}
+           }
         }
 
      stage('Production: Ansible Install Docker on EC2 Ubuntu 1804') {
